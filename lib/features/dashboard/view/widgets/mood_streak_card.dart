@@ -81,7 +81,10 @@ class MoodStreakCard extends StatelessWidget {
                         width: double.infinity,
                         child: OutlinedButton.icon(
                           onPressed: onFreezeTap,
-                          icon: const Text('\u2744\uFE0F', style: TextStyle(fontSize: 14)),
+                          icon: const Text(
+                            '\u2744\uFE0F',
+                            style: TextStyle(fontSize: 14),
+                          ),
                           label: const Text('Protect my streak (5 ECHO)'),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: AppTheme.primaryColor,

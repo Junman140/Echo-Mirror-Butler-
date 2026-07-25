@@ -8,11 +8,7 @@ class StatisticsPanel extends StatelessWidget {
   final List<MoodPinModel> pins;
   final bool isMobile;
 
-  const StatisticsPanel({
-    super.key,
-    required this.pins,
-    this.isMobile = false,
-  });
+  const StatisticsPanel({super.key, required this.pins, this.isMobile = false});
 
   Map<String, int> _getSentimentCounts() {
     final counts = <String, int>{};
@@ -25,7 +21,9 @@ class StatisticsPanel extends StatelessWidget {
 
   String _normalizeSentiment(String sentiment) {
     final lower = sentiment.toLowerCase();
-    if (lower.contains('positive') || lower.contains('happy') || lower.contains('excited')) {
+    if (lower.contains('positive') ||
+        lower.contains('happy') ||
+        lower.contains('excited')) {
       return 'Happy';
     } else if (lower.contains('calm') || lower.contains('grateful')) {
       return 'Calm';
@@ -41,19 +39,21 @@ class StatisticsPanel extends StatelessWidget {
 
   String _getDominantMood() {
     if (pins.isEmpty) return '😐 No data';
-    
+
     final counts = _getSentimentCounts();
     final dominant = counts.entries.reduce((a, b) => a.value > b.value ? a : b);
-    
-    final emoji = {
-      'Happy': '😊',
-      'Calm': '😌',
-      'Stressed': '😰',
-      'Anxious': '😟',
-      'Sad': '😢',
-      'Neutral': '😐',
-    }[dominant.key] ?? '😐';
-    
+
+    final emoji =
+        {
+          'Happy': '😊',
+          'Calm': '😌',
+          'Stressed': '😰',
+          'Anxious': '😟',
+          'Sad': '😢',
+          'Neutral': '😐',
+        }[dominant.key] ??
+        '😐';
+
     return '$emoji ${dominant.key} is trending worldwide';
   }
 
@@ -66,7 +66,9 @@ class StatisticsPanel extends StatelessWidget {
       regions[region] = (regions[region] ?? 0) + 1;
     }
 
-    final mostActive = regions.entries.reduce((a, b) => a.value > b.value ? a : b);
+    final mostActive = regions.entries.reduce(
+      (a, b) => a.value > b.value ? a : b,
+    );
     return mostActive.key;
   }
 
@@ -420,7 +422,7 @@ class _SentimentBreakdownChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       children: sentimentCounts.entries.map((entry) {
         final percentage = (entry.value / total * 100).round();
@@ -454,8 +456,12 @@ class _SentimentBreakdownChart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
                 child: LinearProgressIndicator(
                   value: entry.value / total,
-                  backgroundColor: theme.colorScheme.onSurface.withValues(alpha: 0.1),
-                  valueColor: AlwaysStoppedAnimation(getSentimentColor(entry.key)),
+                  backgroundColor: theme.colorScheme.onSurface.withValues(
+                    alpha: 0.1,
+                  ),
+                  valueColor: AlwaysStoppedAnimation(
+                    getSentimentColor(entry.key),
+                  ),
                   minHeight: 6,
                 ),
               ),

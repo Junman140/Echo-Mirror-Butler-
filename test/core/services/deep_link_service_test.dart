@@ -109,7 +109,9 @@ void main() {
     });
 
     test('auth callback is not mapped as content', () {
-      final uri = Uri.parse('https://echomirrorbutler.vercel.app/auth/callback');
+      final uri = Uri.parse(
+        'https://echomirrorbutler.vercel.app/auth/callback',
+      );
       final route = service.mapUniversalLink(uri);
       expect(route, null);
     });

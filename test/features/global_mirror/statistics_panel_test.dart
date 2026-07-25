@@ -24,9 +24,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -48,9 +46,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -72,9 +68,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -95,9 +89,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -118,9 +110,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -143,9 +133,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -166,9 +154,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -189,9 +175,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -212,9 +196,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: pins, isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: pins, isMobile: true)),
         ),
       );
       await settleAnimations(tester);
@@ -225,9 +207,7 @@ void main() {
     testWidgets('empty pins shows no activity', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: StatisticsPanel(pins: const [], isMobile: true),
-          ),
+          home: Scaffold(body: StatisticsPanel(pins: const [], isMobile: true)),
         ),
       );
       await settleAnimations(tester);

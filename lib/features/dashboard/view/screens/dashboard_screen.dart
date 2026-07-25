@@ -74,7 +74,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Future<void> _handleFreezePurchase(String userId) async {
-    final success = await ref.read(streakFreezeProvider.notifier).purchaseFreeze(userId);
+    final success = await ref
+        .read(streakFreezeProvider.notifier)
+        .purchaseFreeze(userId);
     if (mounted) {
       if (success) {
         ref.read(echoBalanceProvider.notifier).loadBalance(userId);
@@ -88,9 +90,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       } else {
         final error = ref.read(streakFreezeProvider).purchaseError;
         if (error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(error)));
         }
       }
     }
@@ -121,7 +123,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           const SizedBox(width: 8),
           Text(
             'Protect your streak',
-            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -139,7 +143,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           Text(
             'Your balance: ${echoState.balance.toStringAsFixed(0)} ECHO',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: echoState.balance >= 5 ? AppTheme.successColor : Colors.red,
+              color: echoState.balance >= 5
+                  ? AppTheme.successColor
+                  : Colors.red,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -172,7 +178,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ? const SizedBox(
                   width: 16,
                   height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
                 )
               : const Text('\u2744\uFE0F', style: TextStyle(fontSize: 16)),
           label: Text(freezeState.isPurchasing ? 'Freezing...' : 'Freeze it'),
@@ -276,7 +285,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ref.invalidate(moodChartDataProvider);
                 ref.invalidate(dailyLogCheckProvider);
 
-                await ref.read(dashboardProvider.notifier).loadInsights(
+                await ref
+                    .read(dashboardProvider.notifier)
+                    .loadInsights(
                       userId: authState.user!.id,
                       forceReload: true,
                     );
@@ -325,7 +336,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       MoodStreakCard(
                         streak: streakState.currentStreak,
                         showFreezeButton: _shouldShowFreezeButton(),
-                        onFreezeTap: () => _showFreezeConfirmation(ref, authState),
+                        onFreezeTap: () =>
+                            _showFreezeConfirmation(ref, authState),
                       ),
                       const MoodStreakFreezeBadge(),
                       const SizedBox(height: 8),
@@ -343,8 +355,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       InsightSection(
                         title: 'Predictions',
                         insights: predictions,
-                        icon: FontAwesomeIcons
-                            .wandMagicSparkles.data,
+                        icon: FontAwesomeIcons.wandMagicSparkles.data,
                         color: AppTheme.secondaryColor,
                       ),
                       InsightSection(
@@ -417,9 +428,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Card(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
           onTap: () => context.push('/dashboard/mood-analytics'),
           borderRadius: BorderRadius.circular(16),
@@ -433,10 +442,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [
-                        AppTheme.accentColor,
-                        AppTheme.primaryColor,
-                      ],
+                      colors: [AppTheme.accentColor, AppTheme.primaryColor],
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -461,8 +467,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       Text(
                         'View trends, statistics, and insights',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface
-                              .withValues(alpha: 0.6),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.6,
+                          ),
                         ),
                       ),
                     ],
@@ -471,8 +478,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 Icon(
                   FontAwesomeIcons.chevronRight.data,
                   size: 16,
-                  color: theme.colorScheme.onSurface
-                      .withValues(alpha: 0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -508,16 +514,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      AppTheme.primaryColor,
-                      AppTheme.secondaryColor,
-                    ],
+                    colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
                   ),
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primaryColor
-                          .withValues(alpha: 0.3),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 30,
                       offset: const Offset(0, 10),
                     ),
@@ -545,8 +547,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 'to see personalized insights and AI-powered predictions '
                 'generated by Gemini.',
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurface
-                      .withValues(alpha: 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   height: 1.6,
                   fontSize: 15,
                 ),

@@ -57,7 +57,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isLoggingIn = state.matchedLocation == '/login';
       final isSigningUp = state.matchedLocation == '/signup';
       final isVerifyEmail = state.matchedLocation == '/verify-email';
-      final isVerifyEmailConfirmed = state.matchedLocation == '/verify-email-confirmed';
+      final isVerifyEmailConfirmed =
+          state.matchedLocation == '/verify-email-confirmed';
       final isAuthRoute = isLoggingIn || isSigningUp;
 
       // /verify-email and /verify-email-confirmed are always accessible
@@ -77,7 +78,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (isAuthenticated && isAuthRoute) {
         // Check for pending deep link before defaulting to dashboard
         final pendingRoute = await DeepLinkService().consumePendingRoute();
-        if (pendingRoute != null && pendingRoute != '/login' && pendingRoute != '/') {
+        if (pendingRoute != null &&
+            pendingRoute != '/login' &&
+            pendingRoute != '/') {
           return pendingRoute;
         }
         return '/dashboard';
@@ -187,8 +190,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/notifications',
         name: 'notifications',
-        builder: (context, state) =>
-            const MoodCommentNotificationsScreen(),
+        builder: (context, state) => const MoodCommentNotificationsScreen(),
       ),
       GoRoute(
         path: '/breathing',
@@ -198,8 +200,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/music-recommendations',
         name: 'music-recommendations',
-        builder: (context, state) =>
-            const MusicRecommendationsScreen(),
+        builder: (context, state) => const MusicRecommendationsScreen(),
       ),
       GoRoute(
         path: '/wallet',
@@ -209,9 +210,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/gift/:userId',
         name: 'gift',
-        builder: (context, state) => GiftScreen(
-          recipientUserId: state.pathParameters['userId']!,
-        ),
+        builder: (context, state) =>
+            GiftScreen(recipientUserId: state.pathParameters['userId']!),
       ),
       GoRoute(
         path: '/profile',

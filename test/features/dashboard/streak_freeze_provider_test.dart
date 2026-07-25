@@ -112,10 +112,13 @@ void main() {
       expect(state.freezeDate, null);
     });
 
-    test('purchaseFreeze returns false for empty userId without crash', () async {
-      final result = await notifier.purchaseFreeze('');
-      expect(result, false);
-    });
+    test(
+      'purchaseFreeze returns false for empty userId without crash',
+      () async {
+        final result = await notifier.purchaseFreeze('');
+        expect(result, false);
+      },
+    );
 
     test('purchaseError starts null', () {
       final state = container.read(streakFreezeProvider);

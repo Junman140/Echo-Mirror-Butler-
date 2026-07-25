@@ -47,7 +47,8 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
             .eq('user_id', userId)
             .order('last_active', ascending: false);
 
-        final sessions = (res as List<dynamic>?)
+        final sessions =
+            (res as List<dynamic>?)
                 ?.map((s) => Map<String, dynamic>.from(s as Map))
                 .toList() ??
             [];
@@ -63,7 +64,8 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
           ];
         } else {
           _sessions = sessions.map((s) {
-            s['is_current'] = s['created_at'] != null &&
+            s['is_current'] =
+                s['created_at'] != null &&
                 currentSession?.createdAt != null &&
                 _closeTimestamps(
                   DateTime.parse(s['created_at'] as String),
@@ -74,15 +76,12 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
 
           if (_sessions.every((s) => s['is_current'] != true) &&
               currentSession != null) {
-            _sessions.insert(
-              0,
-              {
-                'id': 'current',
-                'device_name': 'This device',
-                'last_active': DateTime.now(),
-                'is_current': true,
-              },
-            );
+            _sessions.insert(0, {
+              'id': 'current',
+              'device_name': 'This device',
+              'last_active': DateTime.now(),
+              'is_current': true,
+            });
           }
         }
       }
@@ -132,16 +131,16 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
           .eq('user_id', client.auth.currentUser!.id);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Session revoked')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Session revoked')));
         await _loadSessions();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
       }
     }
   }
@@ -193,9 +192,9 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: ${e.toString()}')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
         }
       } finally {
         if (mounted) setState(() => _isSigningOutAll = false);
@@ -334,7 +333,9 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
 
         if (factors.totp.isNotEmpty) {
           final factor = factors.totp.first;
-          final challenge = await client.auth.mfa.challenge(factorId: factor.id);
+          final challenge = await client.auth.mfa.challenge(
+            factorId: factor.id,
+          );
           await client.auth.mfa.verify(
             factorId: factor.id,
             challengeId: challenge.id,
@@ -388,9 +389,7 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
                 size: 200.0,
               ),
             const SizedBox(height: 16),
-            const Text(
-              '2. Enter the 6-digit code from your app to verify:',
-            ),
+            const Text('2. Enter the 6-digit code from your app to verify:'),
             const SizedBox(height: 8),
             TextField(
               controller: totpController,
@@ -484,10 +483,7 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Security'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Security'), elevation: 0),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
@@ -575,8 +571,8 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
               )
             else
               ..._sessions.map((session) {
-                final isCurrent = session['is_current'] == true ||
-                    session['id'] == 'current';
+                final isCurrent =
+                    session['is_current'] == true || session['id'] == 'current';
                 return ListTile(
                   leading: Container(
                     padding: const EdgeInsets.all(10),
@@ -624,8 +620,7 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed:
-                      _isSigningOutAll ? null : _signOutAllOtherSessions,
+                  onPressed: _isSigningOutAll ? null : _signOutAllOtherSessions,
                   icon: _isSigningOutAll
                       ? const SizedBox(
                           width: 16,
@@ -635,10 +630,7 @@ class _SecurityScreenState extends ConsumerState<SecurityScreen> {
                             color: Colors.white,
                           ),
                         )
-                      : Icon(
-                          FontAwesomeIcons.rightFromBracket.data,
-                          size: 16,
-                        ),
+                      : Icon(FontAwesomeIcons.rightFromBracket.data, size: 16),
                   label: Text(
                     _isSigningOutAll
                         ? 'Signing out...'

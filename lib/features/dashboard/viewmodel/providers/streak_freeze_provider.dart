@@ -34,7 +34,9 @@ class StreakFreezeState {
       isLoading: isLoading ?? this.isLoading,
       isPurchasing: isPurchasing ?? this.isPurchasing,
       error: clearError ? null : error ?? this.error,
-      purchaseError: clearPurchaseError ? null : purchaseError ?? this.purchaseError,
+      purchaseError: clearPurchaseError
+          ? null
+          : purchaseError ?? this.purchaseError,
     );
   }
 }
@@ -51,7 +53,10 @@ class StreakFreezeNotifier extends StateNotifier<StreakFreezeState> {
 
     try {
       final today = DateTime.now().toIso8601String().substring(0, 10);
-      final tomorrow = DateTime.now().add(const Duration(days: 1)).toIso8601String().substring(0, 10);
+      final tomorrow = DateTime.now()
+          .add(const Duration(days: 1))
+          .toIso8601String()
+          .substring(0, 10);
 
       final res = await _supabase
           .from('streak_freezes')
@@ -79,11 +84,12 @@ class StreakFreezeNotifier extends StateNotifier<StreakFreezeState> {
     state = state.copyWith(isPurchasing: true, clearPurchaseError: true);
 
     try {
-      final tomorrow = DateTime.now().add(const Duration(days: 1)).toIso8601String().substring(0, 10);
+      final tomorrow = DateTime.now()
+          .add(const Duration(days: 1))
+          .toIso8601String()
+          .substring(0, 10);
 
-      await _supabase
-          .from('streak_freezes')
-          .insert({
+      await _supabase.from('streak_freezes').insert({
         'user_id': userId,
         'used_on_date': tomorrow,
         'echo_cost': 5,
@@ -102,7 +108,9 @@ class StreakFreezeNotifier extends StateNotifier<StreakFreezeState> {
           isPurchasing: false,
           purchaseError: 'Insufficient ECHO balance. You need at least 5 ECHO.',
         );
-      } else if (msg.contains('duplicate') || msg.contains('already') || msg.contains('unique')) {
+      } else if (msg.contains('duplicate') ||
+          msg.contains('already') ||
+          msg.contains('unique')) {
         state = state.copyWith(
           isPurchasing: false,
           purchaseError: 'Streak is already frozen for tomorrow.',
@@ -131,5 +139,5 @@ class StreakFreezeNotifier extends StateNotifier<StreakFreezeState> {
 
 final streakFreezeProvider =
     StateNotifierProvider<StreakFreezeNotifier, StreakFreezeState>((ref) {
-  return StreakFreezeNotifier();
-});
+      return StreakFreezeNotifier();
+    });
