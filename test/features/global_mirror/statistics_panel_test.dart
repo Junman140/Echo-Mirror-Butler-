@@ -4,6 +4,10 @@ import 'package:echomirror/features/global_mirror/data/models/mood_pin_model.dar
 import 'package:flutter/material.dart';
 
 void main() {
+  Future<void> settleAnimations(WidgetTester tester) async {
+    await tester.pump(const Duration(seconds: 2));
+  }
+
   group('StatisticsPanel region classification', () {
     testWidgets('northern canada should NOT resolve to Northern Europe', (
       tester,
@@ -25,6 +29,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Northern Europe'), findsNothing);
       expect(find.text('Northern America / Greenland'), findsOneWidget);
@@ -48,6 +53,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Northern Europe'), findsNothing);
       expect(find.text('Northern Asia'), findsOneWidget);
@@ -71,6 +77,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Europe'), findsOneWidget);
     });
@@ -93,6 +100,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('East Asia'), findsOneWidget);
     });
@@ -115,6 +123,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Australia / Oceania'), findsOneWidget);
     });
@@ -139,6 +148,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Southern Tropical South America'), findsOneWidget);
     });
@@ -161,6 +171,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Southern Africa'), findsOneWidget);
     });
@@ -183,6 +194,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Eastern North America'), findsOneWidget);
     });
@@ -205,6 +217,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('Southern Africa'), findsOneWidget);
     });
@@ -217,6 +230,7 @@ void main() {
           ),
         ),
       );
+      await settleAnimations(tester);
 
       expect(find.text('No activity'), findsOneWidget);
     });

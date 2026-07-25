@@ -55,7 +55,7 @@ class DeepLinkService {
           return;
         }
         // Content deep links via universal links
-        final route = _mapUniversalLink(uri);
+        final route = mapUniversalLink(uri);
         if (route != null) {
           _navigateToContent(route);
           return;
@@ -67,7 +67,7 @@ class DeepLinkService {
 
     // Custom scheme content deep links
     if (uri.scheme == 'echomirror') {
-      final route = _mapCustomSchemeLink(uri);
+      final route = mapCustomSchemeLink(uri);
       if (route != null) {
         _navigateToContent(route);
         return;
@@ -77,7 +77,7 @@ class DeepLinkService {
     debugPrint('Unrecognized deep link: $uri');
   }
 
-  String? _mapCustomSchemeLink(Uri uri) {
+  String? mapCustomSchemeLink(Uri uri) {
     final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
     if (segments.isEmpty) return null;
 
@@ -99,7 +99,7 @@ class DeepLinkService {
     }
   }
 
-  String? _mapUniversalLink(Uri uri) {
+  String? mapUniversalLink(Uri uri) {
     final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
     if (segments.isEmpty) return null;
 
@@ -129,12 +129,12 @@ class DeepLinkService {
       _onNavigate?.call(route);
     } else {
       debugPrint('User not authenticated, saving pending route: $route');
-      _savePendingRoute(route);
+      savePendingRoute(route);
       _onNavigate?.call('/login');
     }
   }
 
-  Future<void> _savePendingRoute(String route) async {
+  Future<void> savePendingRoute(String route) async {
     _pendingRoute = route;
     try {
       final prefs = await SharedPreferences.getInstance();

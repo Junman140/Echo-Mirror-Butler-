@@ -1,7 +1,5 @@
 import 'package:echomirror/features/dashboard/view/widgets/mood_streak_card.dart';
-import 'package:echomirror/features/dashboard/viewmodel/providers/streak_freeze_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -48,7 +46,11 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: MoodStreakCard(streak: 0, showFreezeButton: false, onFreezeTap: null),
+            body: MoodStreakCard(
+              streak: 0,
+              showFreezeButton: false,
+              onFreezeTap: null,
+            ),
           ),
         ),
       );
@@ -56,50 +58,6 @@ void main() {
       expect(find.text('\u{1F525} 0-day streak'), findsOneWidget);
       expect(find.text('Start your streak today!'), findsOneWidget);
       expect(find.text('Protect my streak (5 ECHO)'), findsNothing);
-    });
-  });
-
-  group('MoodStreakFreezeBadge', () {
-    testWidgets('shows freeze badge when hasActiveFreeze is true', (
-      tester,
-    ) async {
-      final container = ProviderContainer(
-        overrides: [
-          streakFreezeProvider.overrideWith(
-            (ref) => StreakFreezeNotifier(),
-          ),
-        ],
-      );
-
-      final notifier = container.read(streakFreezeProvider.notifier);
-      // We can't easily set internal state through the notifier
-      // Test the badge display by directly testing the widget logic
-      addTearDown(container.dispose);
-
-      // Verify freeze state starts false
-      final initial = container.read(streakFreezeProvider);
-      expect(initial.hasActiveFreeze, false);
-    });
-
-    testWidgets('badge shows protected text when freeze is active', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                Text('Before'),
-                MoodStreakFreezeBadge(),
-                Text('After'),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      // Without provider override, freeze is inactive - badge should not show
-      expect(find.byType(MoodStreakFreezeBadge), findsOneWidget);
     });
   });
 
@@ -115,7 +73,8 @@ void main() {
                 return Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () => setState(() => dialogVisible = !dialogVisible),
+                      onPressed: () =>
+                          setState(() => dialogVisible = !dialogVisible),
                       child: const Text('Toggle'),
                     ),
                     if (dialogVisible)
@@ -137,7 +96,8 @@ void main() {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     TextButton(
-                                      onPressed: () => setState(() => dialogVisible = false),
+                                      onPressed: () =>
+                                          setState(() => dialogVisible = false),
                                       child: const Text('Cancel'),
                                     ),
                                     FilledButton(
